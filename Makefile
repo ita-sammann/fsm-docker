@@ -15,6 +15,7 @@ dirs: ## Create empty directories for volumes
 build:
 	docker build -t $(USER)/fsm .
 
+.PHONY: run
 run:
 	docker run -d \
 	--name fsm \
