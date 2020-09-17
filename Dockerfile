@@ -10,7 +10,7 @@ ENV FACTORIO_VERSION=latest \
 
 VOLUME /opt/fsm-data /opt/factorio/saves /opt/factorio/mods /opt/factorio/config
 
-EXPOSE 8080/tcp 34197/udp
+EXPOSE 80/tcp 34197/udp
 
 RUN apk add --no-cache curl tar xz unzip jq
 
