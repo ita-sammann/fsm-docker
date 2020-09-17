@@ -6,7 +6,8 @@ ENV FACTORIO_VERSION=latest \
     ADMIN_USER=admin \
     ADMIN_PASS=factorio \
     RCON_PASS="" \
-    COOKIE_ENCRYPTION_KEY=""
+    COOKIE_ENCRYPTION_KEY="" \
+    UPDATE=true
 
 VOLUME /opt/fsm-data /opt/factorio/saves /opt/factorio/mods /opt/factorio/config
 
