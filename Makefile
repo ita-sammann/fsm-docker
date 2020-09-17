@@ -22,7 +22,7 @@ build:
 run:
 	docker run -d \
 	--name fsm \
-	-p 8080:8080/tcp \
+	-p 8080:80/tcp \
 	-p 34197:34197/udp \
 	-v $(FSM):/opt/fsm-data \
 	-v $(SAVES):/opt/factorio/saves \
