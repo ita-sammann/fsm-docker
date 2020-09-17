@@ -12,8 +12,11 @@ SAVES=$(DATA)/saves
 dirs: ## Create empty directories for volumes
 	mkdir -p $(FSM) $(CONFIG) $(MODS) $(SAVES)
 
+
+.PHONY: build
 build:
 	docker build -t $(USER)/fsm .
+
 
 .PHONY: run
 run:
