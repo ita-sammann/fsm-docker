@@ -15,8 +15,6 @@ services:
       - "./factorio-data/saves:/opt/factorio/saves"
       - "./factorio-data/mods:/opt/factorio/mods"
       - "./factorio-data/config:/opt/factorio/config"
-    networks:
-      - "traefik"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.fsm.entrypoints=websecure"
@@ -29,7 +27,7 @@ services:
       - "traefik.udp.routers.fsm.entrypoints=factorio"
       - "traefik.udp.routers.fsm.service=fsm"
       - "traefik.udp.services.fsm.loadbalancer.server.port=34197"
-
 networks:
-  traefik:
-    external: true
+  default:
+    external:
+      name: "traefik"
