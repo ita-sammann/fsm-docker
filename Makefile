@@ -7,6 +7,8 @@ CONFIG=$(DATA)/config
 MODS=$(DATA)/mods
 SAVES=$(DATA)/saves
 
+.PHONY: all
+all: dirs build run
 
 .PHONY: dirs
 dirs: ## Create empty directories for volumes
@@ -20,7 +22,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -d \
+	docker run -d --rm\
 	--name fsm \
 	-p 8080:80/tcp \
 	-p 34197:34197/udp \
