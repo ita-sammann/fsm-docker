@@ -22,7 +22,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -d --rm\
+	docker run -d --rm \
 	--name fsm \
 	-p 8080:80/tcp \
 	-p 34197:34197/udp \
