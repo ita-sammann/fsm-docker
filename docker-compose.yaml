@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  factorio-server-manager:
+    image: "sammann/fsm-docker:latest"
+    container_name: "factorio-server-manager"
+    restart: "unless-stopped"
+    environment:
+      - "ADMIN_USER=admin"
+      - "ADMIN_PASS=factorio"
+      - "RCON_PASS="
+      - "COOKIE_ENCRYPTION_KEY="
+      - "UPDATE=true"
+    volumes:
+      - "./fsm-data:/opt/fsm-data"
+      - "./factorio-data/saves:/opt/factorio/saves"
+      - "./factorio-data/mods:/opt/factorio/mods"
+      - "./factorio-data/config:/opt/factorio/config"
+    networks:
+      - "traefik"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fsm.entrypoints=websecure"
+      - "traefik.http.routers.fsm.rule=Host(`factorio.sammann.ru`)"
+      - "traefik.http.routers.fsm.tls=true"
+      - "traefik.http.routers.fsm.tls.certResolver=default"
+      - "traefik.http.routers.fsm.service=fsm"
+      - "traefik.http.routers.fsm.middlewares=fsm-auth"
+      - "traefik.http.services.fsm.loadbalancer.server.port=80"
+      - "traefik.udp.routers.fsm.entrypoints=factorio"
+      - "traefik.udp.routers.fsm.service=fsm"
+      - "traefik.udp.services.fsm.loadbalancer.server.port=34197"
+
+networks:
+  traefik:
+    external: true
