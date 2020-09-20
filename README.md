@@ -20,8 +20,19 @@ and [Docker Compose](https://docs.docker.com/compose/install/) installed.
   * `DOMAIN_NAME` (must be set manually): The domain name where your FSM web interface will be available. Must be set,
     so [Let's Encrypt](https://letsencrypt.org/) service can issue a valid HTTPS certificate for this domain.
   * `EMAIL_ADDRESS` (must be set manually): Your email address. Used only by Let's Encrypt service.
-* Run `docker-compose up -d`
+* Run
+```
+docker-compose up -d
+```
 
 It may take some time for Let's Encrypt to issue the certificate, so for the first couple of minutes after starting the container you may see
 "Your connection is not private" error when you open your Factorio Server Manager address in your browser. This error should disappear within
 a couple of minutes, if configuration parameters are set correctly.
+
+### Simple configuration without HTTPS
+If you don't care about HTTPS and want to run just the Factorio Server Manager, you can use `docker-compose.simple.yaml`.
+
+Ignore `DOMAIN_NAME` and `EMAIL_ADDREESS` variables in `.env` file and run
+```
+docker-compose -f docker-compose.simple.yaml up -d
+```
