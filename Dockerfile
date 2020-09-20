@@ -7,7 +7,6 @@ ENV FACTORIO_VERSION=latest \
     ADMIN_PASS=factorio \
     RCON_PASS="" \
     COOKIE_ENCRYPTION_KEY="" \
-    UPDATE=true
 
 VOLUME /opt/fsm-data /opt/factorio/saves /opt/factorio/mods /opt/factorio/config
 
@@ -23,12 +22,6 @@ RUN curl --location "https://github.com/mroote/factorio-server-manager/releases/
     && unzip /tmp/factorio-server-manager-linux_${MANAGER_VERSION}.zip \
     && rm /tmp/factorio-server-manager-linux_${MANAGER_VERSION}.zip \
     && mv factorio-server-manager fsm
-
-# Install Factorio
-RUN curl --location "https://www.factorio.com/get-download/${FACTORIO_VERSION}/headless/linux64" \
-         --output /tmp/factorio_${FACTORIO_VERSION}.tar.xz \
-    && tar -xf /tmp/factorio_${FACTORIO_VERSION}.tar.xz \
-    && rm /tmp/factorio_${FACTORIO_VERSION}.tar.xz
 
 COPY entrypoint.sh /opt
 

@@ -34,39 +34,18 @@ random_pass() {
     LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 24 | head -n 1
 }
 
-update_game() {
-    current=`/opt/factorio/bin/x64/factorio --version | grep 'Version:' | awk '{ print $2 }'`
-    latest=`curl -sS https://factorio.com/api/latest-releases | jq ".experimental.headless" | tr -d '"'`
-    echo "Current game version: $current, Latest game version: $latest"
-
-    if verlt $current $latest; then
-        echo "There is new Factorio version available. Starting update process."
-
-        curl --location "https://www.factorio.com/get-download/latest/headless/linux64" --output /tmp/factorio_latest.tar.xz \
-        && tar -xf /tmp/factorio_latest.tar.xz \
-        && rm /tmp/factorio_latest.tar.xz
-
-        echo "Update successfull."
-    else
-        echo "Current Factorio version is up to date."
-    fi
-}
-
-verlte() {
-    [  "$1" = `echo -e "$1\n$2" | sort -V | head -n1` ]
-}
-
-verlt() {
-    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+install_game() {
+    curl --location "https://www.factorio.com/get-download/${FACTORIO_VERSION}/headless/linux64" \
+         --output /tmp/factorio_${FACTORIO_VERSION}.tar.xz \
+    && tar -xf /tmp/factorio_${FACTORIO_VERSION}.tar.xz \
+    && rm /tmp/factorio_${FACTORIO_VERSION}.tar.xz
 }
 
 if [ ! -f /opt/fsm-data/conf.json ]; then
     init_config
 fi
 
-if [ "$UPDATE" == "true" ]; then
-    update_game
-fi
+install_game
 
 cd /opt/fsm && ./factorio-server-manager -conf /opt/fsm-data/conf.json -dir /opt/factorio -port 80
 
