@@ -5,11 +5,11 @@ services:
     container_name: "factorio-server-manager"
     restart: "unless-stopped"
     environment:
+      - "FACTORIO_VERSION"
       - "ADMIN_USER"
       - "ADMIN_PASS"
       - "RCON_PASS"
       - "COOKIE_ENCRYPTION_KEY"
-      - "UPDATE"
     volumes:
       - "./fsm-data:/opt/fsm-data"
       - "./factorio-data/saves:/opt/factorio/saves"

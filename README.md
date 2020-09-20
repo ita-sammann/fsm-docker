@@ -9,14 +9,14 @@ and [Docker Compose](https://docs.docker.com/compose/install/) installed.
 * Clone this repository somewhere on your server (for example: `git clone https://github.com/ita-sammann/fsm-docker.git $HOME/fsm-docker`)
   and `cd` to this directory.
 * Edit variable values in the `.env` file:
+  * `FACTORIO_VERSION` (default `latest`): Factorio version that will be downloaded and used in FSM.
   * `ADMIN_USER` (default `admin`): Name of the default user created for FSM web interface.
   * `ADMIN_PASS` (default `factorio`): Default user password. \
-    __Important:__ _For security reasons, please create a new user via the web interface and delete the default one._
+    __Important:__ _For security reasons, please change the default user name and password. Never use the defaults._
   * `RCON_PASS` (default empty string): Password for Factorio RCON (FSM uses it to communicate with the Factorio server). \
     If left empty, a random password will be generated and saved on the first start of the server. You can see the password in `fsm-data/conf.json` file.
   * `COOKIE_ENCRYPTION_KEY` (default empty string): The key used to encrypt auth cookie for FSM web interface. \
     If left empty, a random key will be generated and saved on the first start of the server. You can see the key in `fsm-data/conf.json` file.
-  * `UPDATE` (default true): If set to true, FSM will try to update Factorio server to the latest version when starting the container.
   * `DOMAIN_NAME` (must be set manually): The domain name where your FSM web interface will be available. Must be set,
     so [Let's Encrypt](https://letsencrypt.org/) service can issue a valid HTTPS certificate for this domain.
   * `EMAIL_ADDRESS` (must be set manually): Your email address. Used only by Let's Encrypt service.
@@ -24,6 +24,14 @@ and [Docker Compose](https://docs.docker.com/compose/install/) installed.
 ```
 docker-compose up -d
 ```
+
+### After start
+When container starts it begins to dowload Factorio headless server archive, and only after that Factorio Server Manager
+server starts. So after Docker Compose writes
+```
+Creating factorio-server-manager ... done
+```
+you have to wait several seconds before FSM web interface becomes available.
 
 It may take some time for Let's Encrypt to issue the certificate, so for the first couple of minutes after starting the container you may see
 "Your connection is not private" error when you open your Factorio Server Manager address in your browser. This error should disappear within
