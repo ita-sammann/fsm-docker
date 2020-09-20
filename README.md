@@ -36,3 +36,10 @@ Ignore `DOMAIN_NAME` and `EMAIL_ADDREESS` variables in `.env` file and run
 ```
 docker-compose -f docker-compose.simple.yaml up -d
 ```
+
+## Update Factorio version
+If you want to update Factorio to the latest version:
+1. Save your game and stop Factorio server in FSM web interface.
+2. Run `docker-compose restart` (or `docker-compose -f docker-compose.simple.yaml restart` if you are using simple configuration).
+
+After container starts, latest Factorio version will be downloaded and installed.
